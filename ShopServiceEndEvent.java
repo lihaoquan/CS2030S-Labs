@@ -45,7 +45,7 @@ class ShopServiceEndEvent extends Event {
 	@Override
 	public String toString() {
 		return super.toString()
-				+ String.format(": Customer %s service done (by Counter %d)", this.customer.getId(), this.counter.getCounterNo());
+				+ String.format(": %s service done (by S%d)", this.customer.toString(), this.counter.getCounterNo());
 	}
 
 	/**

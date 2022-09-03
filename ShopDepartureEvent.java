@@ -1,5 +1,6 @@
 /**
  * Class to handle departure event.
+ * 
  * @author Li Haoquan (Group 10A)
  * @version CS2030S AY22/23 Semester 1
  */
@@ -11,9 +12,9 @@ class ShopDepartureEvent extends Event {
 	/**
 	 * Constructor for a shop event.
 	 *
-	 * @param time       The time this event occurs.
+	 * @param time     The time this event occurs.
 	 * @param customer The customer associated with this
-	 *                   event.
+	 *                 event.
 	 */
 	public ShopDepartureEvent(double time, Customer customer) {
 		super(time);
@@ -28,7 +29,7 @@ class ShopDepartureEvent extends Event {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + String.format(": Customer %s departed", this.customer.getId());
+		return super.toString() + String.format(": %s departed", this.customer.toString());
 	}
 
 	/**
@@ -39,6 +40,19 @@ class ShopDepartureEvent extends Event {
 	 */
 	@Override
 	public Event[] simulate() {
+
+		// Find the first available counter.
+		ShopCounter counter = ShopSimulation.shop.getAvailableCounter();
+
+		if (counter != null) {
+			Customer customerInQueue = ShopSimulation.shop.retrieveCustomerFromQueue();
+			if (customerInQueue != null) {
+				return new Event[] {
+						new ShopServiceBeginEvent(this.getTime(), customerInQueue, counter)
+				};
+			}
+		}
+
 		return new Event[] {};
 	}
 }

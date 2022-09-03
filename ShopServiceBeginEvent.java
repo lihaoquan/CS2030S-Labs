@@ -32,8 +32,8 @@ class ShopServiceBeginEvent extends Event {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + String.format(": Customer %s service begin (by Counter %d)",
-				this.customer.getId(), this.counter.getCounterNo());
+		return super.toString() + String.format(": %s service begin (by S%d)",
+				this.customer.toString(), this.counter.getCounterNo());
 	}
 
 	/**

@@ -10,13 +10,13 @@ public class InputReader {
 
     /**
      * @return an object array with user input of different types.
+     * Static so that it can be re-used as a utility function.
      */
-    public Object[] readUserInput() {
-        // Create a scanner to read from standard input.
-        Scanner sc = new Scanner(System.in);
+    public static Object[] readUserInput(Scanner sc) { 
 
         Event[] initEvents = new Event[sc.nextInt()];
         int numOfCounters = sc.nextInt();
+        int lengthOfQueue = sc.nextInt();
 
         int id = 0;
         while (sc.hasNextDouble()) {
@@ -30,7 +30,7 @@ public class InputReader {
 
         sc.close();
 
-        return new Object[] { initEvents, numOfCounters };
+        return new Object[] { initEvents, numOfCounters, lengthOfQueue };
     }
 
 }

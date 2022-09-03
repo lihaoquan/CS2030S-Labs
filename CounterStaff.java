@@ -13,6 +13,11 @@ public class CounterStaff extends Entity {
      * 
      */
     public CounterStaff(String id, String name) {
-        super(id, name, 0);
+        super(id, name);
+    }
+
+    @Override
+    public String getEntityType() {
+        return "Counter Staff";
     }
 }

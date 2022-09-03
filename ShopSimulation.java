@@ -1,3 +1,4 @@
+import java.util.Scanner;
 /**
  * This class implements a shop simulation.
  *
@@ -12,8 +13,13 @@ class ShopSimulation extends Simulation {
   /**
    * @param inputs An array of input received from InputReader class.
    */
-  public ShopSimulation(Object[] inputs) {
-    shop = new Shop("Default Shop", (int) inputs[1]);
+  public ShopSimulation(Scanner sc) {
+    
+    /*
+     * Get user input and create a shop based on it.
+     */
+    Object[] inputs = InputReader.readUserInput(sc);
+    shop = new Shop("Default Shop", (int) inputs[1], (int) inputs[2]);
     initEvents = (Event[]) inputs[0];
   }
 

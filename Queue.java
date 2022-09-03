@@ -102,7 +102,7 @@ class Queue {
    * Returns the string representation of the queue.
    * 
    * @return A string consisting of the string representation of 
-   * every object in the queue.
+   *         every object in the queue.
    */
   @Override
   public String toString() {

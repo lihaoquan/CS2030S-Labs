@@ -1,20 +1,25 @@
 import java.util.Scanner;
+
 /**
  * This class implements a shop simulation.
  *
  * @author Li Haoquan (Group 10A)
  * @version CS2030S AY22/23 Semester 1
  */
+
 class ShopSimulation extends Simulation {
 
   private Event[] initEvents;
   public static Shop shop;
 
   /**
-   * @param inputs An array of input received from InputReader class.
+   * Takes in a scanner and passes it to InputReader 
+   * to format the inputs and initialize events based 
+   * on set input.
+   * @param sc An input scanner given by LabN.java file where N is lab number.
    */
   public ShopSimulation(Scanner sc) {
-    
+
     /*
      * Get user input and create a shop based on it.
      */

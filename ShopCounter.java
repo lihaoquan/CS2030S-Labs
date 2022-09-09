@@ -101,11 +101,13 @@ public class ShopCounter implements Comparable<ShopCounter> {
   public int compareTo(ShopCounter o) {
 
     // If this counter queue is full, forfeit
-    if (this.counterQueue.isFull())
+    if (this.counterQueue.isFull()) {
       return 1;
+    }
     // If this counter queue has more space, compete
-    if (this.counterQueue.length() < o.counterQueue.length())
+    if (this.counterQueue.length() < o.counterQueue.length()) {
       return -1;
+    }
 
     // If two counters have same queue length
     if (this.counterQueue.length() == o.counterQueue.length()) {

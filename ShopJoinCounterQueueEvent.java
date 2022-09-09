@@ -21,6 +21,7 @@ class ShopJoinCounterQueueEvent extends Event {
    * @param customer the customer object that is passed
    *                 on to this event for referencing/passing on to the next
    *                 event.
+   * @param counter  the counter queue that the customer will join.
    */
   public ShopJoinCounterQueueEvent(double time, Customer customer, ShopCounter counter) {
     super(time);

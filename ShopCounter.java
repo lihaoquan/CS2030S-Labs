@@ -12,6 +12,7 @@ public class ShopCounter implements Comparable<ShopCounter> {
 
   // Counter information
   private int counterNo = 0;
+  private int queueLength = 0;
 
   // Availability. By default, each counter can only accept 1 customer, this can
   // be configured.
@@ -34,6 +35,7 @@ public class ShopCounter implements Comparable<ShopCounter> {
     this.personnel = personnel;
     this.counterNo = counterNo;
     this.maxCapacity = maxCapacity;
+    this.queueLength = queueLength;
 
     this.counterQueue = new Queue<Customer>(queueLength);
   }
@@ -46,6 +48,10 @@ public class ShopCounter implements Comparable<ShopCounter> {
   // If counter queue is full
   public boolean isCounterQueueFull() {
     return this.counterQueue.isFull();
+  }
+
+  public boolean canQueueAtCounter() {
+    return this.queueLength != 0;
   }
 
   // Retrieve customer from counter queue

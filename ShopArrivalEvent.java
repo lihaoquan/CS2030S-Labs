@@ -55,7 +55,7 @@ class ShopArrivalEvent extends Event {
 
       // Find a counter with available queue
       counter = ShopSimulation.shop.getCounterWithAvailableQueue();
-      if (counter != null) {
+      if (counter != null && counter.canQueueAtCounter()) {
         return new Event[] {
             new ShopJoinCounterQueueEvent(this.getTime(), this.customer, counter)
         };

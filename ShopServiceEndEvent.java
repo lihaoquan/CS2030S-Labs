@@ -1,5 +1,6 @@
 /**
  * Class to handle service end event.
+ * 
  * @author Li Haoquan (Group 10A)
  * @version CS2030S AY22/23 Semester 1
  */
@@ -14,9 +15,9 @@ class ShopServiceEndEvent extends Event {
   /**
    * Constructor for a shop event.
    *
-   * @param time The time this event occurs.
+   * @param time     The time this event occurs.
    * @param customer The customer associated with this event.
-   * @param counter The counter that is associated with this event.
+   * @param counter  The counter that is associated with this event.
    */
   public ShopServiceEndEvent(double time, Customer customer, ShopCounter counter) {
     super(time);
@@ -27,7 +28,7 @@ class ShopServiceEndEvent extends Event {
   /**
    * Constructor for a shop event.
    *
-   * @param time The time this event occurs.
+   * @param time     The time this event occurs.
    * @param customer The customer associated with this
    *                 event.
    */
@@ -45,9 +46,10 @@ class ShopServiceEndEvent extends Event {
   @Override
   public String toString() {
     return super.toString()
-      + String.format(": %s service done (by S%d)", 
-          this.customer.toString(), 
-          this.counter.getCounterNo());
+        + String.format(": %s service done (by S%d %s)",
+            this.customer.toString(),
+            this.counter.getCounterNo(),
+            this.counter.getCounterQueue());
   }
 
   /**
@@ -62,8 +64,42 @@ class ShopServiceEndEvent extends Event {
     // Mark the counter is available, then schedule
     // a departure event at the current time.
     this.counter.sendOffCustomer();
-    return new Event[] {
-      new ShopDepartureEvent(this.getTime(), this.customer),
-    };
+
+    Customer customerInShopQueue = ShopSimulation.shop.retrieveCustomerFromQueue();
+    Customer customerInCounterQueue = this.counter.retrieveCustomerFromCounterQueue();
+
+    // If there are customer in shop queue and customer in counter queue.
+    if (customerInShopQueue != null && customerInCounterQueue != null) {
+      return new Event[] {
+          new ShopDepartureEvent(this.getTime(), this.customer),
+          new ShopServiceBeginEvent(this.getTime(), customerInCounterQueue, counter),
+          new ShopJoinCounterQueueEvent(this.getTime(), customerInShopQueue, counter)
+      };
+    }
+
+    // If there are no customer in shop queue, but have customer in counter queue.
+    if (customerInShopQueue == null && customerInCounterQueue != null) {
+      return new Event[] {
+          new ShopDepartureEvent(this.getTime(), this.customer),
+          new ShopServiceBeginEvent(this.getTime(), customerInCounterQueue, counter)
+      };
+    }
+
+    // If there are no customer in counter queue, but have customer in shop queue
+    if (customerInShopQueue != null && customerInCounterQueue == null) {
+      return new Event[] {
+          new ShopDepartureEvent(this.getTime(), this.customer),
+          new ShopJoinCounterQueueEvent(this.getTime(), customerInShopQueue, counter),
+      };
+    }
+
+    // If there are no customer in both counter queue and shop queue
+    if (customerInShopQueue == null && customerInCounterQueue == null) {
+      return new Event[] {
+        new ShopDepartureEvent(this.getTime(), this.customer)
+      };
+    }
+
+    return new Event[] {};
   }
 }

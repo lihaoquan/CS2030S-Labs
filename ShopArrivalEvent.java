@@ -12,6 +12,7 @@ class ShopArrivalEvent extends Event {
   /**
    * Arrival event will be triggered first when
    * a customer arrives.
+   * 
    * @param time     the time when the event occured
    * @param customer th customer object that is passed on to this event for
    *                 referencing/passing on to the next event.
@@ -29,8 +30,8 @@ class ShopArrivalEvent extends Event {
    */
   @Override
   public String toString() {
-    return super.toString() + ": " + this.customer.toString() 
-      + " arrived " + ShopSimulation.shop.getQueue();
+    return super.toString() + ": " + this.customer.toString()
+        + " arrived " + ShopSimulation.shop.getQueue();
   }
 
   /**
@@ -48,22 +49,33 @@ class ShopArrivalEvent extends Event {
 
     if (counter == null) {
       // If no such counter can be found, the customer
-      // should depart.
-      if (ShopSimulation.shop.isQueueFull()) {
+      // look for any counter queue that can be joined
+      // if none are available, the counter should
+      // depart.
+
+      // Find a counter with available queue
+      counter = ShopSimulation.shop.getCounterWithAvailableQueue();
+      if (counter != null) {
         return new Event[] {
-          new ShopDepartureEvent(this.getTime(), this.customer)
+            new ShopJoinCounterQueueEvent(this.getTime(), this.customer, counter)
         };
       } else {
-        return new Event[] {
-          new ShopJoinQueueEvent(this.getTime(), this.customer)
-        };
+        if (ShopSimulation.shop.isQueueFull()) {
+          return new Event[] {
+              new ShopDepartureEvent(this.getTime(), this.customer)
+          };
+        } else {
+          return new Event[] {
+              new ShopJoinQueueEvent(this.getTime(), this.customer)
+          };
+        }
       }
     } else {
       // Else, the customer should go the the first
       // available counter and get served.
       counter.acceptCustomer();
       return new Event[] {
-        new ShopServiceBeginEvent(this.getTime(), this.customer, counter)
+          new ShopServiceBeginEvent(this.getTime(), this.customer, counter)
       };
     }
   }

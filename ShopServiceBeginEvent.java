@@ -22,6 +22,7 @@ class ShopServiceBeginEvent extends Event {
     super(time);
     this.customer = customer;
     this.counter = counter;
+    this.counter.acceptCustomer();
   }
 
   /**
@@ -32,8 +33,10 @@ class ShopServiceBeginEvent extends Event {
    */
   @Override
   public String toString() {
-    return super.toString() + String.format(": %s service begin (by S%d)",
-        this.customer.toString(), this.counter.getCounterNo());
+    return super.toString() + String.format(": %s service begin (by S%d %s)",
+        this.customer.toString(), 
+        this.counter.getCounterNo(), 
+        this.counter.getCounterQueue());
   }
 
   /**

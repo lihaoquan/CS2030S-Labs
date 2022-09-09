@@ -40,20 +40,6 @@ class ShopDepartureEvent extends Event {
    */
   @Override
   public Event[] simulate() {
-
-    // Find the first available counter.
-    ShopCounter counter = ShopSimulation.shop.getAvailableCounter();
-
-    if (counter != null) {
-      Customer customerInQueue = ShopSimulation.shop.retrieveCustomerFromQueue();
-      if (customerInQueue != null) {
-        counter.acceptCustomer();
-        return new Event[] {
-          new ShopServiceBeginEvent(this.getTime(), customerInQueue, counter)
-        };
-      }
-    }
-
     return new Event[] {};
   }
 }

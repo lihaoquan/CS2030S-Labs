@@ -4,23 +4,28 @@
  * @author Li Haoquan (Group 10A)
  * @version CS2030S AY22/23 Semester 1
  */
-class ShopJoinQueueEvent extends Event {
+class ShopJoinCounterQueueEvent extends Event {
 
   // Customer associated with this event.
   private Customer customer;
+  // Counter associated with this event
+  private ShopCounter counter;
 
   /**
-   * Event that will be triggered when adding 
+   * Event that will be triggered when adding
    * customer to the queue if all counters
    * are not available and there are
    * still spaces for queuing in the line.
-   * @param time the time when the event occured
+   * 
+   * @param time     the time when the event occured
    * @param customer the customer object that is passed
-   *        on to this event for referencing/passing on to the next event.
+   *                 on to this event for referencing/passing on to the next
+   *                 event.
    */
-  public ShopJoinQueueEvent(double time, Customer customer) {
+  public ShopJoinCounterQueueEvent(double time, Customer customer, ShopCounter counter) {
     super(time);
     this.customer = customer;
+    this.counter = counter;
   }
 
   /**
@@ -30,11 +35,14 @@ class ShopJoinQueueEvent extends Event {
    * @return A string representing the event.
    */
   @Override
-  public String toString() { 
-    return super.toString() + ": " + 
-      this.customer.toString() + 
-      " joined shop queue " + 
-      ShopSimulation.shop.getQueue(); 
+  public String toString() {
+    return super.toString() + ": " +
+        this.customer.toString() +
+        " joined counter queue (at S" +
+        this.counter.getCounterNo() +
+        " " +
+        this.counter.getCounterQueue() +
+        ")";
   }
 
   /**
@@ -46,7 +54,8 @@ class ShopJoinQueueEvent extends Event {
   @Override
   public Event[] simulate() {
 
-    ShopSimulation.shop.addCustomerToQueue(this.customer);
+    // Add customer to counter queue.
+    this.counter.addCustomerToCounterQueue(this.customer);
 
     return new Event[] {};
   }

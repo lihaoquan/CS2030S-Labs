@@ -22,7 +22,8 @@ public class InputReader {
 
     Event[] initEvents = new Event[sc.nextInt()];
     int numOfCounters = sc.nextInt();
-    int lengthOfQueue = sc.nextInt();
+    int lengthOfShopQueue = sc.nextInt();
+    int lengthOfCounterQueue = sc.nextInt();
 
     int id = 0;
     while (sc.hasNextDouble()) {
@@ -41,7 +42,7 @@ public class InputReader {
 
     sc.close();
 
-    return new Object[] { initEvents, numOfCounters, lengthOfQueue };
+    return new Object[] { initEvents, numOfCounters, lengthOfShopQueue, lengthOfCounterQueue };
   }
 
 }

@@ -13,9 +13,10 @@ class ShopSimulation extends Simulation {
   public static Shop shop;
 
   /**
-   * Takes in a scanner and passes it to InputReader 
-   * to format the inputs and initialize events based 
+   * Takes in a scanner and passes it to InputReader
+   * to format the inputs and initialize events based
    * on set input.
+   * 
    * @param sc An input scanner given by LabN.java file where N is lab number.
    */
   public ShopSimulation(Scanner sc) {
@@ -24,7 +25,7 @@ class ShopSimulation extends Simulation {
      * Get user input and create a shop based on it.
      */
     Object[] inputs = InputReader.readUserInput(sc);
-    shop = new Shop("Default Shop", (int) inputs[1], (int) inputs[2]);
+    shop = new Shop("Default Shop", (int) inputs[1], (int) inputs[2], (int) inputs[3]);
     initEvents = (Event[]) inputs[0];
   }
 

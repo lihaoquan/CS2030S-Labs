@@ -1,5 +1,5 @@
 /**
- * The Array<T> for CS2030S 
+ * The Array for CS2030S 
  *
  * @author Li Haoquan (Group 10A)
  * @version CS2030S AY22/23 Semester 2

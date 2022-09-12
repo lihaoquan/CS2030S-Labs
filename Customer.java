@@ -36,15 +36,7 @@ public class Customer extends Entity {
 
   @Override
   public String toString() {
-    return String.format("C%s", this.getId());
-  }
-
-  /**
-   * ID is used for events to reference a customer.
-   * @return id of the customer for events to reference.
-   */
-  public String getId() {
-    return this.id;
+    return String.format("C%s", this.id);
   }
 
   /**

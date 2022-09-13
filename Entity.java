@@ -32,7 +32,7 @@ public abstract class Entity {
    * @return name of an entity.
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**

@@ -17,30 +17,30 @@ class Array<T extends Comparable<T>> {
    * 
    * @param size Size of the array of type T
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "rawtypes"})
   Array(int size) {
-    array = (T[]) new Comparable[size];
+    this.array = (T[]) new Comparable[size];
   }
   
   // Set an element of the array to be of object type T.
   public void set(int index, T item) {
-    array[index] = item;
+    this.array[index] = item;
   }
 
   public T get(int index) {
-    return array[index];
+    return this.array[index];
   }
 
   public int size() {
-    return array.length;
+    return this.array.length;
   }
 
   // Returns the smallest item based on CompareTo.
   public T min() {
-    T currentMin = array[0];
-    for (int i = 1; i < array.length; i++) {
-      if (array[i].compareTo(currentMin) < 0) {
-        currentMin = array[i];
+    T currentMin = this.array[0];
+    for (int i = 1; i < this.array.length; i++) {
+      if (this.array[i].compareTo(currentMin) < 0) {
+        currentMin = this.array[i];
       }
     }
 
@@ -50,9 +50,9 @@ class Array<T extends Comparable<T>> {
   @Override
   public String toString() {
     StringBuilder s = new StringBuilder("[ ");
-    for (int i = 0; i < array.length; i++) {
-      s.append(i + ":" + array[i]);
-      if (i != array.length - 1) {
+    for (int i = 0; i < this.array.length; i++) {
+      s.append(i + ":" + this.array[i]);
+      if (i != this.array.length - 1) {
         s.append(", ");
       }
     }

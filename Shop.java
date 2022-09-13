@@ -25,13 +25,13 @@ public class Shop {
     this.shopName = shopName;
 
     // Generate counters and designate a staff to each counter.
-    counters = new Array<ShopCounter>(numberOfCounters);
+    this.counters = new Array<ShopCounter>(numberOfCounters);
     for (int i = 0; i < numberOfCounters; i++) {
-      counters.set(i, new ShopCounter(new CounterStaff(Integer.toString((i)),
+      this.counters.set(i, new ShopCounter(new CounterStaff(Integer.toString((i)),
           "Staff " + (i + 1)), i, 1, counterQueueLength));
     }
 
-    queue = new Queue<Customer>(queueLength);
+    this.queue = new Queue<Customer>(queueLength);
   }
 
   /**
@@ -40,7 +40,7 @@ public class Shop {
    * @return an array of ShopCounters that exists in a Shop.
    */
   public Array<ShopCounter> getCounters() {
-    return counters;
+    return this.counters;
   }
 
   /**
@@ -79,19 +79,19 @@ public class Shop {
   }
 
   public String getShopName() {
-    return shopName;
+    return this.shopName;
   }
 
   public String getQueue() {
-    return queue.toString();
+    return this.queue.toString();
   }
 
   public boolean isQueueFull() {
-    return queue.isFull();
+    return this.queue.isFull();
   }
 
   public Customer retrieveCustomerFromQueue() {
-    return (Customer) queue.deq();
+    return (Customer) this.queue.deq();
   }
 
   /**
@@ -101,6 +101,6 @@ public class Shop {
    * @return whether adding customer to queue was successful.
    */
   public boolean addCustomerToQueue(Customer customer) {
-    return queue.enq(customer);
+    return this.queue.enq(customer);
   }
 }
